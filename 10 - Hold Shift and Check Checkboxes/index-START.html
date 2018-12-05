@@ -1,9 +1,11 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
   <meta charset="UTF-8">
   <title>Hold Shift to Check Multiple Checkboxes</title>
 </head>
+
 <body>
   <style>
 
@@ -50,7 +52,9 @@
       border-left: 1px solid #D1E2FF;
     }
   </style>
-   <!--
+
+
+  <!--
    The following is a common layout you would see in an email client.
 
    When a user clicks a checkbox, holds Shift, and then clicks another checkbox a few rows down, all the checkboxes inbetween those two checkboxes should be checked.
@@ -58,44 +62,73 @@
   -->
   <div class="inbox">
     <div class="item">
-      <input type="checkbox">
+      <input id="1" type="checkbox">
       <p>This is an inbox layout.</p>
     </div>
     <div class="item">
-      <input type="checkbox">
+      <input id="2" type="checkbox">
       <p>Check one item</p>
     </div>
     <div class="item">
-      <input type="checkbox">
+      <input id="3" type="checkbox">
       <p>Hold down your Shift key</p>
     </div>
     <div class="item">
-      <input type="checkbox">
+      <input id="4" type="checkbox">
       <p>Check a lower item</p>
     </div>
     <div class="item">
-      <input type="checkbox">
+      <input id="5" type="checkbox">
       <p>Everything inbetween should also be set to checked</p>
     </div>
     <div class="item">
-      <input type="checkbox">
+      <input id="6" type="checkbox">
       <p>Try do it without any libraries</p>
     </div>
     <div class="item">
-      <input type="checkbox">
+      <input id="7" type="checkbox">
       <p>Just regular JavaScript</p>
     </div>
     <div class="item">
-      <input type="checkbox">
+      <input id="8" type="checkbox">
       <p>Good Luck!</p>
     </div>
     <div class="item">
-      <input type="checkbox">
+      <input id="9" type="checkbox">
       <p>Don't forget to tweet your result!</p>
     </div>
   </div>
 
-<script>
-</script>
+  <script>
+    let clickedPreviously;
+
+    function handleCheck(e) {
+      // check if shift is hold down
+      // And check user checking it
+      let inBetween = false; //flag
+      let triggeringCheckbox = this;
+      
+      if (e.shiftKey) {
+        
+        checkboxes.forEach(oneOfTheCheckboxes => {   //loop over every single checkbox
+          console.log(oneOfTheCheckboxes);   
+              
+          if (oneOfTheCheckboxes === triggeringCheckbox || oneOfTheCheckboxes === previouslyClickedCheckbox) {
+            inBetween = !inBetween;
+            console.log("check zone");
+          }
+          if (inBetween) {
+            oneOfTheCheckboxes.checked = true;
+          }
+        });
+      }
+      previouslyClickedCheckbox = triggeringCheckbox;
+    
+    }
+
+    const checkboxes = document.querySelectorAll('.inbox input[type="checkbox"]');
+    checkboxes.forEach(cb => cb.addEventListener('click', handleCheck));
+  </script>
 </body>
+
 </html>
